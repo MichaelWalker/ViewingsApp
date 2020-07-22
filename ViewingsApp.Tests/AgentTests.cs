@@ -36,5 +36,20 @@ namespace ViewingsApp.Tests
             // assert
             isFree.Should().BeFalse();
         }
+        
+        [Test]
+        public void IsNotFreeForViewingsAfterWorkingHours()
+        {
+            // arrange
+            var agent = new Agent { StartTime = 9, EndTime = 17};
+            var viewingStartTime = new DateTime(2020, 7, 22, 16, 30, 0);
+            var viewingEndTime = new DateTime(2020, 7, 22, 17, 30, 0);
+            
+            // act
+            var isFree = agent.IsFreeForViewing(viewingStartTime, viewingEndTime);
+            
+            // assert
+            isFree.Should().BeFalse();
+        }
     }
 }

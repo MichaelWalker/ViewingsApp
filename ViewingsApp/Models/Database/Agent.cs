@@ -24,6 +24,11 @@ namespace ViewingsApp.Models.Database
                 return false;
             }
 
+            if (viewingEnd.Hour > EndTime || (viewingEnd.Hour == EndTime && viewingEnd.Minute > 0))
+            {
+                return false;
+            }
+
             return true;
         } 
     }
