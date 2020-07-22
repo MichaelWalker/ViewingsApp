@@ -13,12 +13,6 @@ namespace ViewingsApp.Services
     
     public class BookingValidator : IBookingValidator
     {
-        public bool Thing(string name)
-        {
-            return name == "";
-        }
-        
-        
         public BookingValidation ValidateBooking(BookingRequest bookingRequest, IEnumerable<Agent> allAgents, IEnumerable<Property> allProperties)
         {
             
