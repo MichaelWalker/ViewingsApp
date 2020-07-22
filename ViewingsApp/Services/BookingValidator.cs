@@ -37,6 +37,12 @@ namespace ViewingsApp.Services
             {
                 return BookingValidation.InValid("Sorry - we couldn't find a matching agent.");
             }
+
+            var property = FindPropertyForBooking(bookingRequest, allProperties);
+            if (property == null)
+            {
+                return BookingValidation.InValid("Sorry - we couldn't find a matching property.");
+            }
             
             return BookingValidation.Valid();
         }
@@ -44,6 +50,11 @@ namespace ViewingsApp.Services
         private Agent FindAgentForBooking(BookingRequest bookingRequest, IEnumerable<Agent> allAgents)
         {
             return allAgents.FirstOrDefault(agent => agent.Id == bookingRequest.AgentId);
+        }
+
+        private Property FindPropertyForBooking(BookingRequest bookingRequest, IEnumerable<Property> allProperties)
+        {
+            return allProperties.FirstOrDefault(property => property.Id == bookingRequest.PropertyId);
         }
     }
 }

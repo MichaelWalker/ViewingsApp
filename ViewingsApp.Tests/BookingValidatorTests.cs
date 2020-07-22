@@ -110,5 +110,21 @@ namespace ViewingsApp.Tests
             bookingValidation.IsValid.Should().BeFalse();
             bookingValidation.ErrorMessage.Should().Be("Sorry - we couldn't find a matching agent.");
         }
+        
+        [Test]
+        public void ShouldFailIfPropertyDoesNotExist()
+        {
+            // Arrange
+            var bookingRequest = ValidRequest();
+            bookingRequest.PropertyId = 17;
+            var bookingValidator = new BookingValidator();
+
+            // Act
+            var bookingValidation = bookingValidator.ValidateBooking(bookingRequest, _agents, _properties);
+
+            // Assert
+            bookingValidation.IsValid.Should().BeFalse();
+            bookingValidation.ErrorMessage.Should().Be("Sorry - we couldn't find a matching property.");
+        }
     }
 }
