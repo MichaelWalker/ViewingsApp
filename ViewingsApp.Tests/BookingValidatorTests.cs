@@ -78,5 +78,21 @@ namespace ViewingsApp.Tests
             bookingValidation.IsValid.Should().BeFalse();
             bookingValidation.ErrorMessage.Should().Be("You must provide a name");
         }
+        
+        [Test]
+        public void ShouldFailIfEmailIsMissing()
+        {
+            // Arrange
+            var bookingRequest = ValidRequest();
+            bookingRequest.EmailAddress = null;
+            var bookingValidator = new BookingValidator();
+
+            // Act
+            var bookingValidation = bookingValidator.ValidateBooking(bookingRequest, _agents, _properties);
+
+            // Assert
+            bookingValidation.IsValid.Should().BeFalse();
+            bookingValidation.ErrorMessage.Should().Be("You must provide an email address");
+        }
     }
 }

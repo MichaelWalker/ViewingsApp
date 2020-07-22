@@ -25,6 +25,11 @@ namespace ViewingsApp.Services
             {
                 return BookingValidation.InValid("You must provide a name");
             }
+
+            if (string.IsNullOrEmpty(bookingRequest.EmailAddress))
+            {
+                return BookingValidation.InValid("You must provide an email address");
+            }
             return BookingValidation.Valid();
         }
     }
