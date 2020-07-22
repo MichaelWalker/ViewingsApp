@@ -19,17 +19,18 @@ namespace ViewingsApp.Models.Database
 
         public bool IsFreeForViewing(DateTime viewingStart, DateTime viewingEnd)
         {
-            if (viewingStart.Hour < StartTime)
-            {
-                return false;
-            }
+            return !IsBeforeWorkStarts(viewingStart) && !IsAfterWorkEnds(viewingEnd);
+        }
 
-            if (viewingEnd.Hour > EndTime || (viewingEnd.Hour == EndTime && viewingEnd.Minute > 0))
-            {
-                return false;
-            }
+        private bool IsBeforeWorkStarts(DateTime dateTime)
+        {
+            return dateTime.Hour < StartTime;
+        }
 
-            return true;
-        } 
+        private bool IsAfterWorkEnds(DateTime dateTime)
+        {
+            return dateTime.Hour > EndTime
+                   || dateTime.Hour == EndTime && dateTime.Minute > 0;
+        }
     }
 }

@@ -12,8 +12,23 @@ namespace ViewingsApp.Tests
         {
             // arrange
             var agent = new Agent { StartTime = 9, EndTime = 17};
-            var viewingStartTime = new DateTime(2020, 7, 22, 10, 0, 0);
-            var viewingEndTime = new DateTime(2020, 7, 22, 11, 0, 0);
+            var viewingStartTime = new DateTime(2020, 7, 22, 9, 0, 0);
+            var viewingEndTime = new DateTime(2020, 7, 22, 10, 0, 0);
+            
+            // act
+            var isFree = agent.IsFreeForViewing(viewingStartTime, viewingEndTime);
+            
+            // assert
+            isFree.Should().BeTrue();
+        }
+        
+        [Test]
+        public void IsFreeForViewingsEndingAtTheEndOfTheDay()
+        {
+            // arrange
+            var agent = new Agent { StartTime = 9, EndTime = 17};
+            var viewingStartTime = new DateTime(2020, 7, 22, 16, 0, 0);
+            var viewingEndTime = new DateTime(2020, 7, 22, 17, 0, 0);
             
             // act
             var isFree = agent.IsFreeForViewing(viewingStartTime, viewingEndTime);
