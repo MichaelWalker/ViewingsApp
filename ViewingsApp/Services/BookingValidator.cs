@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ViewingsApp.Models.Database;
 using ViewingsApp.Models.Request;
 using ViewingsApp.Models.ViewModel;
@@ -30,7 +31,19 @@ namespace ViewingsApp.Services
             {
                 return BookingValidation.InValid("You must provide an email address");
             }
+
+            var agent = FindAgentForBooking(bookingRequest, allAgents);
+            if (agent == null)
+            {
+                return BookingValidation.InValid("Sorry - we couldn't find a matching agent.");
+            }
+            
             return BookingValidation.Valid();
+        }
+
+        private Agent FindAgentForBooking(BookingRequest bookingRequest, IEnumerable<Agent> allAgents)
+        {
+            return allAgents.FirstOrDefault(agent => agent.Id == bookingRequest.AgentId);
         }
     }
 }

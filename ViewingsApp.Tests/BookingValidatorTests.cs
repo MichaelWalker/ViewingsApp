@@ -94,5 +94,21 @@ namespace ViewingsApp.Tests
             bookingValidation.IsValid.Should().BeFalse();
             bookingValidation.ErrorMessage.Should().Be("You must provide an email address");
         }
+        
+        [Test]
+        public void ShouldFailIfAgentDoesNotExist()
+        {
+            // Arrange
+            var bookingRequest = ValidRequest();
+            bookingRequest.AgentId = 17;
+            var bookingValidator = new BookingValidator();
+
+            // Act
+            var bookingValidation = bookingValidator.ValidateBooking(bookingRequest, _agents, _properties);
+
+            // Assert
+            bookingValidation.IsValid.Should().BeFalse();
+            bookingValidation.ErrorMessage.Should().Be("Sorry - we couldn't find a matching agent.");
+        }
     }
 }
